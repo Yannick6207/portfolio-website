@@ -568,7 +568,7 @@ footer{
         height: 100%;
         margin-bottom: 20px;
     }
-    .contentProjecten p{
+    .contentProjecten p, .contentStappen p{
         text-align: center;
     }
     .contentProjecten .projecten{
