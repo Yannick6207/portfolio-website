@@ -78,6 +78,9 @@ if(isset($_POST['submit'])) {
             </nav>
         </header>
         <div class="navigatie-responsief">
+            <button class="menu-close" type="button" aria-label="Sluit menu">
+                <span></span>
+            </button>
             <h2>Yannick.</h2>
             <ul class="navigatie-menu">
                 <li><a href="#overmij">Over Mij</a></li>
@@ -272,6 +275,7 @@ if(isset($_POST['submit'])) {
         let hamburger = document.querySelector(".navbar-toggler");
         let navMenu = document.querySelector(".navbar-collapse");
         let navResponsief = document.querySelector(".navigatie-responsief");
+        let menuClose = document.querySelector(".menu-close");
         let navLinksResponsief = document.querySelectorAll(".navigatie-menu a");
         let overlay = document.querySelector(".overlay");
         let lastScrollY = window.scrollY;
@@ -285,6 +289,7 @@ if(isset($_POST['submit'])) {
             hamburger.classList.remove("active");
             navMenu.style.display = "none";
             navResponsief.classList.remove("show");
+            updateHeaderOnScroll();
         }
 
         function openMobileMenu() {
@@ -296,6 +301,8 @@ if(isset($_POST['submit'])) {
             hamburger.classList.add("active");
             navMenu.style.display = "none";
             navResponsief.classList.add("show");
+            header.classList.add("header-fixed");
+            header.classList.remove("header-hidden");
         }
 
         hamburger.addEventListener("click", function() {
@@ -361,6 +368,10 @@ if(isset($_POST['submit'])) {
             link.addEventListener("click", function() {
                 closeMobileMenu();
             });
+        });
+
+        menuClose.addEventListener("click", function() {
+            closeMobileMenu();
         });
 
         overlay.addEventListener("click", function() {
