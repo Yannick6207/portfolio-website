@@ -65,7 +65,7 @@ header nav h2 a:hover{
     color: white;
 }
 .navbar-collapse .navbar-nav{
-    width: 50%;
+    width: 70%;
     height: 100%;
     display: flex;
     justify-content: space-around;
@@ -187,7 +187,7 @@ header nav h2 a:hover{
 .contentWaarom{
     width: 100%;
     height: auto;
-    background-color: #0A1A2F;
+    background-color: #0E2A3B;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -210,7 +210,7 @@ header nav h2 a:hover{
 .contentOver{
     width: 100%;
     height: auto;
-    background-color: #0E2A3B;
+    background-color: #0A1A2F;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -255,7 +255,7 @@ header nav h2 a:hover{
 .contentProjecten{
     width: 100%;
     height: auto;
-    background-color: #0A1A2F;
+    background-color: #0E2A3B;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -273,7 +273,7 @@ header nav h2 a:hover{
 .contentProjecten .project{
     width: 33%;
     min-height: 400px;
-    background-color: #0E2A3B;
+    background-color: #0A1A2F;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -317,7 +317,7 @@ header nav h2 a:hover{
 .contentStappen{
     width: 100%;
     height: auto;
-    background-color: #0E2A3B;
+    background-color: #0A1A2F;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -338,7 +338,7 @@ header nav h2 a:hover{
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: #0A1A2F;
+    background-color: #0E2A3B;
     margin-bottom: 40px;
     padding-top: 40px;
     padding-bottom: 40px;
@@ -356,7 +356,7 @@ header nav h2 a:hover{
 .contentPakketten{
     width: 100%;
     height: auto;
-    background-color: #0A1A2F;
+    background-color: #0E2A3B;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -378,7 +378,7 @@ header nav h2 a:hover{
 .contentPakketten .pakket{
     width: 25%;
     min-height: 440px;
-    background-color: #0E2A3B;
+    background-color: #0A1A2F;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -411,9 +411,9 @@ header nav h2 a:hover{
     margin-bottom: 10px;
 }
 .contentPakketten .pakket .badgePakket{
-    position: absolute;
-    top: 15px;
-    right: 15px;
+    position: relative;
+    top: 0px;
+    right: 0px;
     background-color: #00C6FF;
     color: #0A1A2F;
     font-size: 12px;
@@ -425,6 +425,9 @@ header nav h2 a:hover{
     border: 2px solid #00C6FF;
     box-shadow: 0 12px 24px rgba(0, 198, 255, 0.15);
 }
+.contentPakketten .pakket.meestGekozen h3{
+    margin-top: 20px;
+}
 .contentPakketten .pakket .prijs{
     color: #00C6FF;
     font-weight: 600;
@@ -433,7 +436,7 @@ header nav h2 a:hover{
 .contentVoordelen{
     width: 100%;
     height: auto;
-    background-color: #0E2A3B;
+    background-color: #0A1A2F;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -453,7 +456,7 @@ header nav h2 a:hover{
 .contentVoordelen .voordeel{
     width: 25%;
     min-height: 140px;
-    background-color: #0A1A2F;
+    background-color: #0E2A3B;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -470,7 +473,7 @@ header nav h2 a:hover{
 .contentContact{
     width: 100%;
     height: auto;
-    background-color: #0A1A2F;
+    background-color: #0E2A3B;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -516,7 +519,7 @@ header nav h2 a:hover{
 footer{
     width: 100%;
     height: 60px;
-    background-color: #0E2A3B;
+    background-color: #0A1A2F;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -692,12 +695,6 @@ footer{
     .contentPakketten .pakket{
         width: 100%;
         min-height: auto;
-    }
-    .contentPakketten .pakket.meestGekozen .badgePakket{
-        position: unset;
-    }
-    .contentPakketten .pakket.meestGekozen h3{
-        margin-top: 20px;
     }
     .contentVoordelen .voordelenLijst{
         flex-direction: column;

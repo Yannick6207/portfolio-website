@@ -67,10 +67,12 @@ if (isset($_POST['submit'])) {
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
+                        <li class="nav-item"><a class="nav-link" href="#waarom">Waarom</a></li>
                         <li class="nav-item"><a class="nav-link" href="#overmij">Over Mij</a></li>
                         <li class="nav-item"><a class="nav-link" href="#projecten">Projecten</a></li>
                         <li class="nav-item"><a class="nav-link" href="#stappen">Stappen</a></li>
                         <li class="nav-item"><a class="nav-link" href="#pakketten">Pakketten</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#voordelen">Voordelen</a></li>
                         <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
                     </ul>
                 </div>
@@ -82,10 +84,12 @@ if (isset($_POST['submit'])) {
             </button>
             <h2>Yannick.</h2>
             <ul class="navigatie-menu">
+                <li><a href="#waarom">Waarom</a></li>
                 <li><a href="#overmij">Over Mij</a></li>
                 <li><a href="#projecten">Projecten</a></li>
                 <li><a href="#stappen">Stappen</a></li>
                 <li><a href="#pakketten">Pakketten</a></li>
+                <li><a href="#voordelen">Voordelen</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
         </div>
@@ -108,7 +112,7 @@ if (isset($_POST['submit'])) {
             </section>
         </div>
     </div>
-    <section class="contentWaarom">
+    <section class="contentWaarom" id="waarom">
         <h2>Waarom kiezen voor <span>mij?</span></h2>
         <p>Een goede website is meer dan alleen design. Het moet snel, duidelijk en gericht zijn op het krijgen van klanten. Ik zorg ervoor dat jouw website niet alleen mooi is, maar ook echt werkt voor jouw bedrijf.</p>
     </section>
@@ -226,7 +230,7 @@ if (isset($_POST['submit'])) {
             </div>
         </div>
     </section>
-    <section class="contentVoordelen">
+    <section class="contentVoordelen" id="voordelen">
         <h2>Wat levert het je <span>op?</span></h2>
         <ul class="voordelenLijst">
             <li class="voordeel">Meer aanvragen via je website</li>
