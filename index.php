@@ -9,7 +9,7 @@ if (isset($_GET['sent'])) {
 }
 $error = "";
 
-if(isset($_POST['submit'])) {
+if (isset($_POST['submit'])) {
     $name = $_POST['name'];
     $email = $_POST['email'];
     $pakket = $_POST['pakket'] ?? '';
@@ -19,11 +19,11 @@ if(isset($_POST['submit'])) {
 
     try {
         $mail->isSMTP();
-        $mail->Host       = 'smtp.strato.com';
-        $mail->SMTPAuth   = true;
-        $mail->Username   = 'yannick.huet@yannick25.nl';
-        $mail->Password   = "Max4Verstappen!?";
-        $mail->Port       = 587;
+        $mail->Host = 'smtp.strato.com';
+        $mail->SMTPAuth = true;
+        $mail->Username = 'yannick.huet@yannick25.nl';
+        $mail->Password = "Max4Verstappen!?";
+        $mail->Port = 587;
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
 
         $mail->setFrom('yannick.huet@yannick25.nl', 'Portfolio Website');
@@ -32,10 +32,10 @@ if(isset($_POST['submit'])) {
 
         $mail->isHTML(false);
         $mail->Subject = "Nieuw bericht van $name";
-        $mail->Body    = "Naam: $name\n";
-        $mail->Body   .= "E-mail: $email\n\n";
-        $mail->Body   .= "Pakketkeuze: " . ($pakket !== "" ? $pakket : "Geen pakket gekozen") . "\n\n";
-        $mail->Body   .= "Bericht:\n" . ($message !== "" ? $message : "Geen bericht ingevuld");
+        $mail->Body = "Naam: $name\n";
+        $mail->Body .= "E-mail: $email\n\n";
+        $mail->Body .= "Pakketkeuze: " . ($pakket !== "" ? $pakket : "Geen pakket gekozen") . "\n\n";
+        $mail->Body .= "Bericht:\n" . ($message !== "" ? $message : "Geen bericht ingevuld");
 
         $mail->send();
         header("Location: index.php?sent=1");
@@ -44,10 +44,9 @@ if(isset($_POST['submit'])) {
         $error = "Mail versturen mislukt. Fout: {$mail->ErrorInfo}";
     }
 }
-
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="nl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -93,15 +92,11 @@ if(isset($_POST['submit'])) {
         <div class="overlay"></div>
         <div class="hero-midden">
             <section class="sectie-links">
-                <h1>Hallo, ik ben Yannick van Huet</h1>
-                <h2 class="hero-typing">
-                    <span id="typed"></span>
-                </h2>
-                <p>Heb je nog geen website of is je huidige site verouderd? <br>
-                   Ik help kleine bedrijven met een moderne en betaalbare website.</p>
+                <h1>Professionele websites die klanten opleveren</h1>
+                <p>Ik help kleine bedrijven met een moderne, snelle website die zorgt voor meer aanvragen en een professionele uitstraling.</p>
                 <div class="buttons">
                     <a href="#projecten">Bekijk mijn projecten</a>
-                    <a href="#contact">Neem contact op</a>
+                    <a href="#contact">Vraag vrijblijvend een website aan</a>
                 </div>
                 <div class="socials">
                     <a href="https://www.instagram.com/yannickvh2004/"><img src="afbeeldingen/instagram-logo-zonder-achtergrond.png" alt="Instagram"></a>
@@ -113,44 +108,47 @@ if(isset($_POST['submit'])) {
             </section>
         </div>
     </div>
+    <section class="contentWaarom">
+        <h2>Waarom kiezen voor <span>mij?</span></h2>
+        <p>Een goede website is meer dan alleen design. Het moet snel, duidelijk en gericht zijn op het krijgen van klanten. Ik zorg ervoor dat jouw website niet alleen mooi is, maar ook echt werkt voor jouw bedrijf.</p>
+    </section>
     <section class="contentOver" id="overmij">
         <h2>Over&nbsp;<span>Mij</span></h2>
         <div class="profile">
             <div class="profileImg">
                 <img src="afbeeldingen/foto-website-yannick-zonder-achtergrond.png" alt="Yannick van Huet">
-            </div>   
-            <h3>Frontend Ontwikkelaar!</h3>
+            </div>
+            <h3>Jouw partner voor een sterke website</h3>
             <p>
-                Ik ben een enthousiaste frontend ontwikkelaar met een passie voor het creëren van mooie 
-                en functionele websites. Met mijn kennis en kunde zorg ik ervoor 
-                dat jouw online aanwezigheid er professioneel en modern uitziet 
-                en goed werkt op alle apparaten. Of je nu een kleine onderneming hebt of een 
-                persoonlijke blog wilt starten, ik help je graag om jouw visie tot 
-                leven te brengen.
+                Mijn naam is Yannick en ik help ondernemers met het bouwen van moderne en gebruiksvriendelijke websites.
+                <br><br>
+                Ik focus niet alleen op hoe een website eruitziet, maar vooral op hoe deze presteert. Het doel is simpel: een website die vertrouwen uitstraalt en klanten oplevert.
+                <br><br>
+                Of je nu net begint of je huidige website wilt verbeteren, ik help je graag verder.
             </p>
         </div>
     </section>
     <section class="contentProjecten" id="projecten">
         <h2>Mijn&nbsp;<span>Projecten</span></h2>
-        <p>Dit is een greep uit de projecten die ik onder andere voor school heb gemaakt.</p>
+        <p>Een paar voorbeelden van websites en concepten die laten zien hoe ik design en gebruiksvriendelijkheid combineer.</p>
         <div class="projecten w3-container">
             <div class="projectVoetbal project">
-                <h3>Voetbal&nbsp;<span>App</span></h3>
-                <img src="afbeeldingen/icon-voetbal.png" alt="voetbal app icoon">
-                <p>Een web app voor de telefoon die live scores, uitslagen en standen biedt van over 200 competities voor voetbalfans.</p>
-                <a href="http://voetbalapp.yannick25.nl/" target="_blank">Bekijk de app</a>
+                <h3>Webapp voor <span>sportplatform</span></h3>
+                <img src="afbeeldingen/icon-voetbal.png" alt="sportplatform icoon">
+                <p>Een moderne en overzichtelijke website gericht op het aantrekken van nieuwe klanten en een professionele uitstraling.</p>
+                <a href="http://voetbalapp.yannick25.nl/" target="_blank">Bekijk het project</a>
             </div>
             <div class="projectPokedex project">
-                <h3>Pokedex&nbsp;<span>App</span></h3>
-                <img src="afbeeldingen/pokemon.png" alt="pokedex app icoon">
-                <p>Een web app die informatie biedt over alle 1008 Pokémon, inclusief afbeeldingen, types en stats.</p>
-                <a href="http://pokedex.yannick25.nl/" target="_blank">Bekijk de app</a>
+                <h3>Pokedex <span>App</span></h3>
+                <img src="afbeeldingen/pokemon.png" alt="demo webshop icoon">
+                <p>Een moderne en overzichtelijke website gericht op het aantrekken van nieuwe klanten en een professionele uitstraling.</p>
+                <a href="http://pokedex.yannick25.nl/" target="_blank">Bekijk het project</a>
             </div>
             <div class="projectContactPagina project">
-                <h3>Contact&nbsp;<span>Pagina</span></h3>
-                <img src="afbeeldingen/frontendmentor.png" alt="contact pagina icoon">
-                <p>Een contactpagina met een formulier waarmee bezoekers gemakkelijk hun contactgegevens kunnen invoeren met foutafhandeling erin verwerkt.</p>
-                <a href="http://contactpagina.yannick25.nl/" target="_blank">Bekijk de pagina</a>
+                <h3>Website voor <span>contactgegevens</span></h3>
+                <img src="afbeeldingen/frontendmentor.png" alt="dienstverlener icoon">
+                <p>Een moderne en overzichtelijke website gericht op het aantrekken van nieuwe klanten en een professionele uitstraling.</p>
+                <a href="http://contactpagina.yannick25.nl/" target="_blank">Bekijk het project</a>
             </div>
         </div>
     </section>
@@ -168,7 +166,7 @@ if(isset($_POST['submit'])) {
             </div>
             <div class="stap">
                 <h3>3. <span>Ontwikkeling</span></h3>
-                <p>Ik bouw de website met moderne technologieën en zorg ervoor dat deze snel, veilig en gebruiksvriendelijk is.</p>
+                <p>Ik bouw de website met moderne technologieen en zorg ervoor dat deze snel, veilig en gebruiksvriendelijk is.</p>
             </div>
             <div class="stap">
                 <h3>4. <span>Lancering</span></h3>
@@ -181,56 +179,71 @@ if(isset($_POST['submit'])) {
         <p>Kies het pakket dat het beste past bij jouw bedrijf, wensen en budget.</p>
         <div class="pakketten">
             <div class="pakket">
-                <h3>Pakket <span>1</span></h3>
+                <h3>Starter <span>- &euro;349</span></h3>
+                <p class="pakketIntro">Perfect voor kleine ondernemers die snel online willen zijn.</p>
                 <ul>
                     <li>One-page website</li>
-                    <li>Responsive ontwerp</li>
+                    <li>Responsive design</li>
                     <li>Contactformulier</li>
-                    <li>Basis styling in jouw huisstijl</li>
+                    <li>Basis styling</li>
                 </ul>
-                <p class="prijs">Vanaf €299</p>
+                <p class="prijs">Snel en professioneel online</p>
             </div>
-            <div class="pakket">
-                <h3>Pakket <span>2</span></h3>
+            <div class="pakket meestGekozen">
+                <span class="badgePakket">Meest gekozen</span>
+                <h3>Business <span>- &euro;599</span></h3>
+                <p class="pakketIntro">Voor bedrijven die professioneel willen groeien.</p>
                 <ul>
                     <li>Website tot 3 pagina's</li>
-                    <li>Responsive ontwerp</li>
+                    <li>Responsive design</li>
                     <li>Contactformulier</li>
                     <li>Social media koppelingen</li>
+                    <li>Basis optimalisatie</li>
                 </ul>
-                <p class="prijs">Vanaf €499</p>
+                <p class="prijs">Ideaal voor groeiende bedrijven</p>
             </div>
             <div class="pakket">
-                <h3>Pakket <span>3</span></h3>
+                <h3>Pro <span>- &euro;899</span></h3>
+                <p class="pakketIntro">Voor ondernemers die alles uit hun website willen halen.</p>
                 <ul>
                     <li>Website tot 5 pagina's</li>
                     <li>Uniek design op maat</li>
                     <li>Contactformulier</li>
                     <li>Basis SEO optimalisatie</li>
+                    <li>Snelle laadtijd</li>
                 </ul>
-                <p class="prijs">Vanaf €799</p>
+                <p class="prijs">Meer resultaat uit je website</p>
             </div>
             <div class="pakket">
-                <h3>Pakket <span>4</span></h3>
+                <h3>Custom <span>- vanaf &euro;1199</span></h3>
+                <p class="pakketIntro">Voor grotere of unieke projecten.</p>
                 <ul>
-                    <li>Uitgebreide website</li>
-                    <li>Design op maat</li>
-                    <li>Meerdere formulieren</li>
+                    <li>Volledig maatwerk</li>
+                    <li>Meerdere functies</li>
                     <li>Onderhoud en nazorg</li>
                 </ul>
-                <p class="prijs">Op aanvraag</p>
+                <p class="prijs">Voor websites met extra mogelijkheden</p>
             </div>
         </div>
     </section>
+    <section class="contentVoordelen">
+        <h2>Wat levert het je <span>op?</span></h2>
+        <ul class="voordelenLijst">
+            <li class="voordeel">Meer aanvragen via je website</li>
+            <li class="voordeel">Professionele uitstraling</li>
+            <li class="voordeel">Betere vindbaarheid</li>
+            <li class="voordeel">Werkt perfect op mobiel</li>
+        </ul>
+    </section>
     <section class="contentContact" id="contact">
-        <h2>Neem&nbsp;<span>Contact</span>&nbsp;Op</h2>
-        <p>Heb je een vraag of heb je interesse? Stuur me een bericht.</p>
+        <h2>Klaar voor jouw nieuwe <span>website?</span></h2>
+        <p>Vraag vrijblijvend een website aan en ontdek wat ik voor jouw bedrijf kan betekenen.</p>
         <?php
-            if($success){
+            if ($success) {
                 echo "<p style='color:green;'>$success</p>";
             }
 
-            if($error){
+            if ($error) {
                 echo "<p style='color:red;'>$error</p>";
             }
         ?>
@@ -238,14 +251,14 @@ if(isset($_POST['submit'])) {
             <input type="text" name="name" placeholder="Voornaam en achternaam" required>
             <input type="email" name="email" placeholder="E-mail" required>
             <select name="pakket">
-                <option value="" selected>Kies je pakket:</option>
-                <option value="Pakket 1">Pakket 1</option>
-                <option value="Pakket 2">Pakket 2</option>
-                <option value="Pakket 3">Pakket 3</option>
-                <option value="Pakket 4">Pakket 4</option>
+                <option value="" selected>Kies eventueel een pakket</option>
+                <option value="Starter">Starter</option>
+                <option value="Business">Business</option>
+                <option value="Pro">Pro</option>
+                <option value="Custom">Custom</option>
             </select>
             <textarea name="message" placeholder="Waarmee kan ik je helpen?"></textarea>
-            <button type="submit" name="submit">Verstuur</button>
+            <button type="submit" name="submit">Vraag vrijblijvend een website aan</button>
         </form>
     </section>
     <footer>
@@ -253,22 +266,7 @@ if(isset($_POST['submit'])) {
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
-
     <script>
-        let typed = new Typed("#typed", {
-            strings: [
-            "Frontend Ontwikkelaar"
-            ],
-            typeSpeed: 60,
-            backSpeed: 40,
-            backDelay: 1500,
-            startDelay: 300,
-            loop: true,
-            showCursor: true,
-            cursorChar: "|"
-        });
-
         let body = document.querySelector("body");
         let nav = document.querySelector(".navbar");
         let header = document.querySelector("#header");
@@ -306,14 +304,14 @@ if(isset($_POST['submit'])) {
         }
 
         hamburger.addEventListener("click", function() {
-            if(body.classList.contains("is-active")) {
+            if (body.classList.contains("is-active")) {
                 closeMobileMenu();
             } else {
                 openMobileMenu();
             }
         });
 
-        const animatedItems = document.querySelectorAll(".project, .stap, .pakket");
+        const animatedItems = document.querySelectorAll(".project, .stap, .pakket, .voordeel");
 
         function showItemsOnScroll() {
             animatedItems.forEach(item => {
