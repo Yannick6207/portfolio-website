@@ -288,6 +288,7 @@ header nav h2 a:hover{
 }
 .contentProjecten .project h3{
     margin-top: 20px;
+    text-align: center;
 }
 .project img{
     width: 100px;
