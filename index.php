@@ -148,11 +148,11 @@ if (isset($_POST['submit'])) {
                 <p>Een moderne en overzichtelijke website gericht op het aantrekken van nieuwe klanten en een professionele uitstraling.</p>
                 <a href="http://pokedex.yannick25.nl/" target="_blank">Bekijk het project</a>
             </div>
-            <div class="projectContactPagina project">
-                <h3>Website voor <span>contactgegevens</span></h3>
-                <img src="afbeeldingen/frontendmentor.png" alt="dienstverlener icoon">
+            <div class="projectHorecaWaarheid project">
+                <h3>Website voor <span>horecawaarheid.nl</span></h3>
+                <img src="afbeeldingen\horecawaarheid-logo.png" alt="horecawaarheid icoon">
                 <p>Een moderne en overzichtelijke website gericht op het aantrekken van nieuwe klanten en een professionele uitstraling.</p>
-                <a href="http://contactpagina.yannick25.nl/" target="_blank">Bekijk het project</a>
+                <a href="https://horecawaarheid.nl/" target="_blank">Bekijk het project</a>
             </div>
         </div>
     </section>
