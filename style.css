@@ -405,6 +405,10 @@ header nav h2 a:hover{
 }
 .contentPakketten .pakket ul{
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     padding-left: 20px;
     margin-bottom: 20px;
 }
