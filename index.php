@@ -142,11 +142,11 @@ if (isset($_POST['submit'])) {
                 <p>Een moderne en overzichtelijke website gericht op het aantrekken van nieuwe klanten en een professionele uitstraling.</p>
                 <a href="http://voetbalapp.yannick25.nl/" target="_blank">Bekijk het project</a>
             </div>
-            <div class="projectPokedex project">
-                <h3>Pokedex <span>App</span></h3>
-                <img src="afbeeldingen/pokemon.png" alt="demo webshop icoon">
-                <p>Een moderne en overzichtelijke website gericht op het aantrekken van nieuwe klanten en een professionele uitstraling.</p>
-                <a href="http://pokedex.yannick25.nl/" target="_blank">Bekijk het project</a>
+            <div class="projectFitFuel project">
+                <h3>Website voor <span>FitFuel</span></h3>
+                <img src="afbeeldingen/fitfuel-logo.svg" alt="FitFuel-logo">
+                <p>Een moderne website voor gezonde, verse en eiwitrijke maaltijden, afgestemd op de doelen van de gebruiker.</p>
+                <a href="http://fitfuel.yannick25.nl/" target="_blank">Bekijk het project</a>
             </div>
             <div class="projectHorecaWaarheid project">
                 <h3>Website voor <span>horecawaarheid.nl</span></h3>

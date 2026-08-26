@@ -295,9 +295,6 @@ header nav h2 a:hover{
     height: 100px;
     margin-top: 20px;
 }
-.projectPokedex img{
-    width: 240px !important;
-}
 .project p{
     width: 90%;
     text-align: center;
