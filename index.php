@@ -61,7 +61,11 @@ if (isset($_POST['submit'])) {
     <div class="hero-boven">
         <header id="header">
             <nav class="navbar navbar-expand-lg navbar-light">
-                <h2><a href="index.php">Yannick.</a></h2>
+                <h2 class="site-logo">
+                    <a href="index.php" aria-label="YNWebDesign - naar de homepage">
+                        <img src="afbeeldingen/ynwebdesign-logo.png" alt="YNWebDesign-logo">
+                    </a>
+                </h2>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -82,7 +86,11 @@ if (isset($_POST['submit'])) {
             <button class="menu-close" type="button" aria-label="Sluit menu">
                 <span></span>
             </button>
-            <h2><a href="index.php">Yannick.</a></h2>
+            <h2 class="site-logo">
+                <a href="index.php" aria-label="YNWebDesign - naar de homepage">
+                    <img src="afbeeldingen/ynwebdesign-logo.png" alt="YNWebDesign-logo">
+                </a>
+            </h2>
             <ul class="navigatie-menu">
                 <li><a href="#waarom">Waarom</a></li>
                 <li><a href="#overmij">Over Mij</a></li>
