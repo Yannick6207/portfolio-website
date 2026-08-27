@@ -157,7 +157,7 @@ if (isset($_POST['submit'])) {
                 <a href="http://fitfuel.yannick25.nl/" target="_blank">Bekijk het project</a>
             </div>
             <div class="projectHorecaWaarheid project">
-                <h3>Website voor <span>horecawaarheid.nl</span></h3>
+                <h3>Website voor <span>horecawaarheid</span></h3>
                 <img src="afbeeldingen\horecawaarheid-logo-met-achtergrond.png" alt="horecawaarheid icoon">
                 <p>Een moderne en overzichtelijke website gericht op het aantrekken van nieuwe klanten en een professionele uitstraling.</p>
                 <a href="https://horecawaarheid.nl/" target="_blank">Bekijk het project</a>
