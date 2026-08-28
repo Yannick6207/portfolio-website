@@ -148,7 +148,7 @@ if (isset($_POST['submit'])) {
                 <h3>Website voor <span>NOVA</span></h3>
                 <img src="afbeeldingen/nova-logo.svg" alt="NOVA Artist Management-logo">
                 <p>Een stijlvolle website voor artiestenmanagement, gericht op talentontwikkeling, boekingen en professionele groei.</p>
-                <a href="https://nova.yannick25.nl/" target="_blank" rel="noopener noreferrer">Bekijk het project</a>
+                <a href="http://nova.yannick25.nl/" target="_blank" rel="noopener noreferrer">Bekijk het project</a>
             </div>
             <div class="projectFitFuel project">
                 <h3>Website voor <span>FitFuel</span></h3>
