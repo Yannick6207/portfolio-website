@@ -144,11 +144,11 @@ if (isset($_POST['submit'])) {
         <h2>Mijn&nbsp;<span>Projecten</span></h2>
         <p>Een paar voorbeelden van websites en concepten die laten zien hoe ik design en gebruiksvriendelijkheid combineer.</p>
         <div class="projecten w3-container">
-            <div class="projectVoetbal project">
-                <h3>Webapp voor <span>sportplatform</span></h3>
-                <img src="afbeeldingen/icon-voetbal.png" alt="sportplatform icoon">
-                <p>Een moderne en overzichtelijke website gericht op het aantrekken van nieuwe klanten en een professionele uitstraling.</p>
-                <a href="http://voetbalapp.yannick25.nl/" target="_blank">Bekijk het project</a>
+            <div class="projectNova project">
+                <h3>Website voor <span>NOVA</span></h3>
+                <img src="afbeeldingen/nova-logo.svg" alt="NOVA Artist Management-logo">
+                <p>Een stijlvolle website voor artiestenmanagement, gericht op talentontwikkeling, boekingen en professionele groei.</p>
+                <a href="https://nova.yannick25.nl/" target="_blank" rel="noopener noreferrer">Bekijk het project</a>
             </div>
             <div class="projectFitFuel project">
                 <h3>Website voor <span>FitFuel</span></h3>

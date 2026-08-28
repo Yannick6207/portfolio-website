@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-labelledby="title description">
+  <title id="title">NOVA Artist Management</title>
+  <desc id="description">Donker vierkant logo met de witte tekst NOVA en een roze ster.</desc>
+  <rect width="100" height="100" rx="18" fill="#05070a"/>
+  <path d="M50 17l2.2 7.3L59 27l-6.8 2.7L50 37l-2.2-7.3L41 27l6.8-2.7L50 17z" fill="#f04d86"/>
+  <text x="50" y="59" fill="#f4f3f4" font-family="Georgia, 'Times New Roman', serif" font-size="22" font-weight="700" letter-spacing="3" text-anchor="middle">NOVA</text>
+  <text x="50" y="72" fill="#a6a8ae" font-family="Arial, sans-serif" font-size="5.2" letter-spacing="1.45" text-anchor="middle">ARTIST MANAGEMENT</text>
+</svg>
