@@ -275,26 +275,56 @@ if (isset($_POST['submit'])) {
     </section>
     <section class="contentProjecten" id="projecten">
         <h2>Mijn&nbsp;<span>Projecten</span></h2>
-        <p>Een paar voorbeelden van websites en concepten die laten zien hoe ik design en gebruiksvriendelijkheid combineer.</p>
+        <p>Een paar voorbeelden van websites die laten zien hoe ik design en gebruiksvriendelijkheid combineer.</p>
         <div class="projecten w3-container">
-            <div class="projectNova project">
-                <h3>Website voor <span>NOVA</span></h3>
-                <img src="afbeeldingen/nova-logo.svg" alt="NOVA Artist Management-logo">
-                <p>Een stijlvolle website voor artiestenmanagement, gericht op talentontwikkeling, boekingen en professionele groei.</p>
-                <a href="http://nova.yannick25.nl/" target="_blank" rel="noopener noreferrer">Bekijk het project</a>
-            </div>
-            <div class="projectFitFuel project">
-                <h3>Website voor <span>FitFuel</span></h3>
-                <img src="afbeeldingen/fitfuel-logo.svg" alt="FitFuel-logo">
-                <p>Een moderne website voor gezonde, verse en eiwitrijke maaltijden, afgestemd op de doelen van de gebruiker.</p>
-                <a href="http://fitfuel.yannick25.nl/" target="_blank">Bekijk het project</a>
-            </div>
-            <div class="projectHorecaWaarheid project">
-                <h3>Website voor <span>horecawaarheid</span></h3>
-                <img src="afbeeldingen\horecawaarheid-logo-met-achtergrond.png" alt="horecawaarheid icoon">
-                <p>Een moderne en overzichtelijke website gericht op het aantrekken van nieuwe klanten en een professionele uitstraling.</p>
-                <a href="https://horecawaarheid.nl/" target="_blank">Bekijk het project</a>
-            </div>
+            <article class="projectNova project">
+                <h3><span>NOVA</span></h3>
+                <p class="projectType">Conceptwebsite · Artiestenmanagement</p>
+                <div class="projectVisual">
+                    <img class="projectScreenshot" src="afbeeldingen/nova-project.png" alt="Homepage van de NOVA-conceptwebsite" loading="lazy">
+                    <img class="projectLogo" src="afbeeldingen/nova-logo.svg" alt="NOVA Artist Management-logo">
+                </div>
+                <p class="projectDescription">Ik ontwierp en ontwikkelde een krachtige, responsive website met een artiestenoverzicht, duidelijke diensten en conversiegerichte contactmomenten.</p>
+                <ul class="projectTech" aria-label="Gebruikte technieken">
+                    <li>HTML</li>
+                    <li>CSS</li>
+                    <li>JavaScript</li>
+                    <li>PHP</li>
+                </ul>
+                <a class="projectCta" href="http://nova.yannick25.nl/" target="_blank" rel="noopener noreferrer">Bekijk het project</a>
+            </article>
+            <article class="projectFitFuel project">
+                <h3><span>FitFuel</span></h3>
+                <p class="projectType">Conceptwebsite · Maaltijdservice</p>
+                <div class="projectVisual">
+                    <img class="projectScreenshot" src="afbeeldingen/fitfuel-project.png" alt="Homepage van de FitFuel-conceptwebsite" loading="lazy">
+                    <img class="projectLogo" src="afbeeldingen/fitfuel-logo.svg" alt="FitFuel-logo">
+                </div>
+                <p class="projectDescription">Ik ontwierp en ontwikkelde een moderne, responsive website waarmee gebruikers maaltijden ontdekken, voedingsinformatie bekijken en eenvoudig een passend aanbod vinden.</p>
+                <ul class="projectTech" aria-label="Gebruikte technieken">
+                    <li>HTML</li>
+                    <li>CSS</li>
+                    <li>JavaScript</li>
+                    <li>PHP</li>
+                </ul>
+                <a class="projectCta" href="http://fitfuel.yannick25.nl/" target="_blank" rel="noopener noreferrer">Bekijk het project</a>
+            </article>
+            <article class="projectHorecaWaarheid project">
+                <h3><span>HorecaWaarheid</span></h3>
+                <p class="projectType">Website &amp; webapp · Horeca-inzicht</p>
+                <div class="projectVisual">
+                    <img class="projectScreenshot" src="afbeeldingen/horecawaarheid-project.png" alt="Homepage van HorecaWaarheid" loading="lazy">
+                    <img class="projectLogo" src="afbeeldingen/horecawaarheid-logo-met-achtergrond.png" alt="HorecaWaarheid-logo">
+                </div>
+                <p class="projectDescription">Ik ontwierp en ontwikkelde een responsive platform dat financiële inzichten, contractanalyse en praktisch advies samenbrengt in een helder dashboard voor horecaondernemers.</p>
+                <ul class="projectTech" aria-label="Gebruikte technieken">
+                    <li>HTML</li>
+                    <li>CSS</li>
+                    <li>JavaScript</li>
+                    <li>PHP</li>
+                </ul>
+                <a class="projectCta" href="https://horecawaarheid.nl/" target="_blank" rel="noopener noreferrer">Bekijk het project</a>
+            </article>
         </div>
     </section>
     <section class="contentStappen" id="stappen">

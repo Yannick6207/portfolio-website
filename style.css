@@ -269,62 +269,135 @@ header nav h2 a:hover{
 .contentProjecten{
     width: 100%;
     height: auto;
+    scroll-margin-top: 130px;
     background-color: #0E2A3B;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding-bottom: 40px;
+    padding-bottom: 36px;
+}
+.contentProjecten > p{
+    width: min(90%, 980px);
+    margin: 8px auto 24px;
+    text-align: center;
 }
 .contentProjecten .projecten{
     width: 90%;
-    height: 80%;
+    max-width: 1600px;
     display: flex;
     justify-content: center;
-    align-items: flex-start;
+    align-items: stretch;
     gap: 20px;
 }
 .contentProjecten .project{
-    width: 33%;
-    min-height: 400px;
+    width: calc((100% - 40px) / 3);
+    min-width: 0;
     background-color: #0A1A2F;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    align-items: stretch;
+    padding: 22px;
+    border: 1px solid rgba(0, 198, 255, 0.22);
+    border-radius: 12px;
+    overflow: hidden;
     opacity: 0;
     transform: translateY(30px);
-    transition: all 0.8s ease;
+    transition: opacity 0.8s ease, transform 0.8s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 .contentProjecten .project.show {
     opacity: 1;
     transform: translateY(0);
 }
+.contentProjecten .project.show:hover{
+    transform: translateY(-5px);
+    border-color: rgba(0, 198, 255, 0.52);
+    box-shadow: 0 14px 32px rgba(0, 0, 0, 0.24);
+}
 .contentProjecten .project h3{
-    margin-top: 20px;
+    margin: 0;
+    font-size: clamp(24px, 2vw, 30px);
+    line-height: 1.2;
     text-align: center;
 }
-.project img{
-    width: 100px;
-    height: 100px;
-    margin-top: 20px;
-}
-.project p{
-    width: 90%;
+.contentProjecten .project .projectType{
+    width: 100%;
+    min-height: 42px;
+    margin: 6px 0 14px;
+    color: #b8cbd7;
+    font-size: 14px;
+    line-height: 1.45;
     text-align: center;
-    margin-top: 20px;
-    margin-bottom: 20px;
 }
-.project a{
+.contentProjecten .projectVisual{
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    background-color: #06111f;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+.contentProjecten .projectVisual .projectScreenshot{
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    margin: 0;
+}
+.contentProjecten .projectVisual .projectLogo{
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    width: 58px;
+    height: 58px;
+    margin: 0;
+    padding: 6px;
+    object-fit: contain;
+    background-color: rgba(5, 13, 22, 0.92);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 8px;
+}
+.contentProjecten .project .projectDescription{
+    width: 100%;
+    margin: 16px 0 14px;
+    color: #eef5f8;
+    font-size: 15px;
+    line-height: 1.65;
+    text-align: left;
+}
+.contentProjecten .projectTech{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    margin: 0 0 18px;
+    padding: 0;
+    list-style: none;
+}
+.contentProjecten .projectTech li{
+    padding: 4px 9px;
+    color: #9feaff;
+    background-color: rgba(0, 198, 255, 0.08);
+    border: 1px solid rgba(0, 198, 255, 0.28);
+    border-radius: 999px;
+    font-size: 12px;
+    line-height: 1.35;
+}
+.contentProjecten .project .projectCta{
+    align-self: flex-start;
+    margin-top: auto;
+    margin-bottom: 0;
     text-decoration: none;
     color: #00C6FF;
     border: 1px solid #00C6FF;
     padding: 10px 20px;
     border-radius: 5px;
-    margin-bottom: 20px;
+    transition: color 0.25s ease, background-color 0.25s ease;
 }
-.project a:hover{
-    color: #00C6FF;
+.contentProjecten .project .projectCta:hover{
+    color: #0A1A2F;
+    background-color: #00C6FF;
 }
 .contentStappen{
     width: 100%;
@@ -541,6 +614,9 @@ footer{
     align-items: center;
 }
 @media screen and (max-width: 1000px) {
+    .contentProjecten{
+        scroll-margin-top: 90px;
+    }
     header,
     header.header-fixed{
         height: 90px;
@@ -714,11 +790,12 @@ footer{
         text-align: center;
     }
     .contentProjecten .projecten{
-        flex-direction: column;
+        flex-direction: row;
+        flex-wrap: wrap;
         align-items: center;
     }
     .projecten .project{
-        width: 100%;
+        width: calc(50% - 10px);
     }
     .contentStappen .stappen .stap{
         padding-left: 20px;
@@ -752,5 +829,42 @@ footer{
     }
     .contentContact button{
         width: 100%;
+    }
+}
+
+@media screen and (max-width: 650px){
+    .contentProjecten{
+        padding-bottom: 28px;
+    }
+    .contentProjecten > p{
+        margin-bottom: 20px;
+    }
+    .contentProjecten .projecten{
+        width: 92%;
+        flex-direction: column;
+        gap: 16px;
+    }
+    .projecten .project{
+        width: 100%;
+        padding: 18px;
+    }
+    .contentProjecten .project .projectType{
+        min-height: 0;
+        margin-bottom: 12px;
+    }
+    .contentProjecten .project .projectDescription{
+        margin-top: 14px;
+        font-size: 14px;
+    }
+    .contentProjecten .project .projectCta{
+        width: 100%;
+        text-align: center;
+    }
+}
+
+@media (prefers-reduced-motion: reduce){
+    .contentProjecten .project,
+    .contentProjecten .project .projectCta{
+        transition: none;
     }
 }
