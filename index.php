@@ -3,45 +3,178 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 require 'vendor/autoload.php';
 
+function escapeEmailHtml($value)
+{
+    return htmlspecialchars($value, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+}
+
+function getSmtpPassword()
+{
+    $environmentPassword = getenv('PASSWORD');
+    if ($environmentPassword !== false && $environmentPassword !== '') {
+        return $environmentPassword;
+    }
+
+    $environmentFile = __DIR__ . '/.env';
+    $environment = is_readable($environmentFile) ? parse_ini_file($environmentFile) : false;
+
+    return is_array($environment) && isset($environment['PASSWORD'])
+        ? (string) $environment['PASSWORD']
+        : '';
+}
+
+function configureMailer(PHPMailer $mail, $smtpPassword)
+{
+    $mail->isSMTP();
+    $mail->Host = 'smtp.strato.com';
+    $mail->SMTPAuth = true;
+    $mail->Username = 'yannick.huet@yannick25.nl';
+    $mail->Password = $smtpPassword;
+    $mail->Port = 587;
+    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+    $mail->CharSet = PHPMailer::CHARSET_UTF8;
+    $mail->setFrom('yannick.huet@yannick25.nl', 'YN Webdesign');
+    $mail->isHTML(true);
+    $mail->addEmbeddedImage(
+        __DIR__ . '/afbeeldingen/ynwebdesign-logo.png',
+        'ynwebdesign-logo',
+        'ynwebdesign-logo.png',
+        'base64',
+        'image/png'
+    );
+}
+
+function createEmailLayout($preheader, $content)
+{
+    return '<!doctype html>
+<html lang="nl">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>YN Webdesign</title>
+    <style>
+        @media only screen and (max-width: 620px) {
+            .email-shell { width: 100% !important; }
+            .email-padding { padding: 28px 20px !important; }
+            .email-title { font-size: 26px !important; line-height: 34px !important; }
+            .email-button { display: block !important; text-align: center !important; }
+            .email-logo { width: 180px !important; }
+        }
+    </style>
+</head>
+<body style="margin:0;padding:0;background-color:#eef4f8;font-family:Arial,Helvetica,sans-serif;color:#14243a;">
+    <div style="display:none;max-height:0;overflow:hidden;opacity:0;color:transparent;">' . $preheader . '</div>
+    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="width:100%;background-color:#eef4f8;">
+        <tr>
+            <td align="center" style="padding:32px 12px;">
+                <table role="presentation" width="600" cellspacing="0" cellpadding="0" border="0" class="email-shell" style="width:600px;max-width:600px;background-color:#ffffff;border-radius:14px;overflow:hidden;box-shadow:0 8px 28px rgba(9,30,55,.10);">
+                    <tr>
+                        <td align="center" style="padding:20px 32px;background-color:#071b33;border-bottom:4px solid #18c7e8;">
+                            <img src="cid:ynwebdesign-logo" width="210" class="email-logo" alt="YN Webdesign" style="display:block;width:210px;max-width:100%;height:auto;border:0;outline:none;text-decoration:none;">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="email-padding" style="padding:38px 40px;">' . $content . '</td>
+                    </tr>
+                    <tr>
+                        <td style="padding:20px 32px;background-color:#071b33;color:#b9cada;font-size:12px;line-height:19px;text-align:center;">
+                            YN Webdesign &nbsp;&bull;&nbsp; yannick25.nl
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>';
+}
+
 $success = "";
 if (isset($_GET['sent'])) {
-    $success = "Je bericht is succesvol verzonden.";
+    $success = "Bedankt! Je aanvraag is succesvol verstuurd. Je ontvangt binnen enkele minuten een bevestiging per e-mail.";
 }
 $error = "";
 
 if (isset($_POST['submit'])) {
-    $name = $_POST['name'];
-    $email = $_POST['email'];
-    $pakket = $_POST['pakket'] ?? '';
-    $message = trim($_POST['message'] ?? '');
+    $name = trim((string) ($_POST['name'] ?? ''));
+    $email = trim((string) ($_POST['email'] ?? ''));
+    $pakket = trim((string) ($_POST['pakket'] ?? ''));
+    $message = trim((string) ($_POST['message'] ?? ''));
+    $allowedPackages = ['', 'Starter', 'Business', 'Pro', 'Custom'];
 
-    $mail = new PHPMailer(true);
+    if ($name === '' || preg_match('/[\r\n]/', $name)) {
+        $error = 'Vul een geldige naam in.';
+    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL) || preg_match('/[\r\n]/', $email)) {
+        $error = 'Vul een geldig e-mailadres in.';
+    } elseif (!in_array($pakket, $allowedPackages, true)) {
+        $error = 'Kies een geldig pakket.';
+    } else {
+        $pakketDisplay = $pakket !== '' ? $pakket : 'Geen pakket gekozen';
+        $messageDisplay = $message !== '' ? $message : 'Geen bericht ingevuld';
 
-    try {
-        $mail->isSMTP();
-        $mail->Host = 'smtp.strato.com';
-        $mail->SMTPAuth = true;
-        $mail->Username = 'yannick.huet@yannick25.nl';
-        $mail->Password = "Max4Verstappen!?";
-        $mail->Port = 587;
-        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+        $safeName = escapeEmailHtml($name);
+        $safeEmail = escapeEmailHtml($email);
+        $safePackage = escapeEmailHtml($pakketDisplay);
+        $safeMessage = nl2br(escapeEmailHtml($messageDisplay), false);
+        $replyUrl = 'mailto:' . escapeEmailHtml($email);
 
-        $mail->setFrom('yannick.huet@yannick25.nl', 'Portfolio Website');
-        $mail->addAddress('yannick.huet@yannick25.nl');
-        $mail->addReplyTo($email, $name);
+        $detailRows = '
+            <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="width:100%;border-collapse:collapse;">
+                <tr><td style="padding:12px 14px;background:#f2f7fa;border-bottom:1px solid #dbe7ee;width:130px;font-size:13px;font-weight:700;color:#496277;">Naam</td><td style="padding:12px 14px;border-bottom:1px solid #dbe7ee;font-size:15px;">' . $safeName . '</td></tr>
+                <tr><td style="padding:12px 14px;background:#f2f7fa;border-bottom:1px solid #dbe7ee;font-size:13px;font-weight:700;color:#496277;">E-mailadres</td><td style="padding:12px 14px;border-bottom:1px solid #dbe7ee;font-size:15px;"><a href="mailto:' . $safeEmail . '" style="color:#087f9b;">' . $safeEmail . '</a></td></tr>
+                <tr><td style="padding:12px 14px;background:#f2f7fa;font-size:13px;font-weight:700;color:#496277;">Pakket</td><td style="padding:12px 14px;font-size:15px;">' . $safePackage . '</td></tr>
+            </table>';
 
-        $mail->isHTML(false);
-        $mail->Subject = "Nieuw bericht van $name";
-        $mail->Body = "Naam: $name\n";
-        $mail->Body .= "E-mail: $email\n\n";
-        $mail->Body .= "Pakketkeuze: " . ($pakket !== "" ? $pakket : "Geen pakket gekozen") . "\n\n";
-        $mail->Body .= "Bericht:\n" . ($message !== "" ? $message : "Geen bericht ingevuld");
+        $internalContent = '
+            <p style="margin:0 0 8px;color:#18aeca;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1px;">Nieuwe websiteaanvraag</p>
+            <h1 class="email-title" style="margin:0 0 24px;color:#071b33;font-size:30px;line-height:38px;">Nieuwe aanvraag van ' . $safeName . '</h1>
+            ' . $detailRows . '
+            <h2 style="margin:28px 0 10px;color:#071b33;font-size:18px;">Bericht</h2>
+            <div style="padding:18px;background-color:#f2f7fa;border-left:4px solid #18c7e8;border-radius:4px;font-size:15px;line-height:24px;overflow-wrap:anywhere;">' . $safeMessage . '</div>
+            <table role="presentation" cellspacing="0" cellpadding="0" border="0" style="margin-top:28px;"><tr><td bgcolor="#18c7e8" style="border-radius:6px;"><a class="email-button" href="' . $replyUrl . '" style="display:inline-block;padding:14px 22px;color:#071b33;text-decoration:none;font-size:15px;font-weight:700;">Beantwoord ' . $safeName . '</a></td></tr></table>
+            <p style="margin:28px 0 0;color:#6a7d8e;font-size:12px;line-height:19px;">Deze aanvraag is ontvangen via yannick25.nl.</p>';
 
-        $mail->send();
-        header("Location: index.php?sent=1");
-        exit;
-    } catch (Exception $e) {
-        $error = "Mail versturen mislukt. Fout: {$mail->ErrorInfo}";
+        $customerContent = '
+            <p style="margin:0 0 8px;color:#18aeca;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1px;">Bedankt voor je aanvraag</p>
+            <h1 class="email-title" style="margin:0 0 18px;color:#071b33;font-size:30px;line-height:38px;">Hoi ' . $safeName . ',</h1>
+            <p style="margin:0 0 24px;color:#344b60;font-size:16px;line-height:26px;">Je aanvraag is goed ontvangen. Ik bekijk je wensen en neem zo snel mogelijk contact met je op.</p>
+            <p style="margin:0 0 6px;color:#496277;font-size:13px;font-weight:700;">Gekozen pakket</p>
+            <p style="margin:0 0 22px;color:#071b33;font-size:16px;">' . $safePackage . '</p>
+            <p style="margin:0 0 8px;color:#496277;font-size:13px;font-weight:700;">Jouw bericht</p>
+            <div style="padding:18px;background-color:#f2f7fa;border-left:4px solid #18c7e8;border-radius:4px;font-size:15px;line-height:24px;overflow-wrap:anywhere;">' . $safeMessage . '</div>
+            <p style="margin:28px 0 0;color:#344b60;font-size:15px;line-height:23px;">Met vriendelijke groet,<br><strong style="color:#071b33;">Yannick van Huet</strong><br>YN Webdesign</p>';
+
+        $mail = new PHPMailer(true);
+
+        try {
+            $smtpPassword = getSmtpPassword();
+            if ($smtpPassword === '') {
+                throw new Exception('SMTP-wachtwoord ontbreekt.');
+            }
+
+            configureMailer($mail, $smtpPassword);
+            $mail->addAddress('yannick.huet@yannick25.nl');
+            $mail->addReplyTo($email, $name);
+            $mail->Subject = 'Nieuwe websiteaanvraag – ' . $name;
+            $mail->Body = createEmailLayout('Nieuwe websiteaanvraag van ' . $safeName, $internalContent);
+            $mail->AltBody = "Nieuwe websiteaanvraag\n\nNaam: {$name}\nE-mailadres: {$email}\nPakket: {$pakketDisplay}\n\nBericht:\n{$messageDisplay}\n\nOntvangen via yannick25.nl.";
+            $mail->send();
+
+            $confirmationMail = new PHPMailer(true);
+            configureMailer($confirmationMail, $smtpPassword);
+            $confirmationMail->addAddress($email, $name);
+            $confirmationMail->addReplyTo('yannick.huet@yannick25.nl', 'YN Webdesign');
+            $confirmationMail->Subject = 'Bedankt voor je aanvraag bij YN Webdesign';
+            $confirmationMail->Body = createEmailLayout('Je aanvraag bij YN Webdesign is goed ontvangen.', $customerContent);
+            $confirmationMail->AltBody = "Hoi {$name},\n\nJe aanvraag is goed ontvangen. Ik bekijk je wensen en neem zo snel mogelijk contact met je op.\n\nGekozen pakket: {$pakketDisplay}\n\nJouw bericht:\n{$messageDisplay}\n\nMet vriendelijke groet,\n\nYannick van Huet\nYN Webdesign";
+            $confirmationMail->send();
+
+            header('Location: index.php?sent=1#contact');
+            exit;
+        } catch (Exception $e) {
+            error_log('Contactformulier mailfout: ' . $e->getMessage() . ' / ' . $mail->ErrorInfo);
+            $error = 'Mail versturen is helaas mislukt. Probeer het later opnieuw.';
+        }
     }
 }
 ?>
