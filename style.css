@@ -296,7 +296,8 @@ header nav h2 a:hover{
     background-color: #0A1A2F;
     display: flex;
     flex-direction: column;
-    align-items: stretch;
+    justify-content: center;
+    align-items: center;
     padding: 22px;
     border: 1px solid rgba(0, 198, 255, 0.22);
     border-radius: 12px;
@@ -365,7 +366,7 @@ header nav h2 a:hover{
     color: #eef5f8;
     font-size: 15px;
     line-height: 1.65;
-    text-align: left;
+    text-align: center;
 }
 .contentProjecten .projectTech{
     display: flex;
@@ -385,7 +386,6 @@ header nav h2 a:hover{
     line-height: 1.35;
 }
 .contentProjecten .project .projectCta{
-    align-self: flex-start;
     margin-top: auto;
     margin-bottom: 0;
     text-decoration: none;
@@ -604,7 +604,7 @@ header nav h2 a:hover{
     width: 50%;
     padding: 10px;
     border: 1px solid #00C6FF;
-    color: #0A1A2F;
+    color: #ffffff;
     border-radius: 5px;
     background-color: #00C6FF;
     font-weight: 600;
