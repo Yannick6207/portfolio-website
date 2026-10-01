@@ -329,23 +329,23 @@ if (isset($_POST['submit'])) {
     </section>
     <section class="contentStappen" id="stappen">
         <h2>De&nbsp;<span>Stappen</span></h2>
-        <p>Ik maak het proces van het bouwen van een website eenvoudig en stressvrij. Hier is hoe het werkt:</p>
+        <p>Van eerste gesprek tot professionele website. Ik regel het hele traject voor je. We bespreken wat jouw onderneming nodig heeft, waarna ik jouw ideeën, huisstijl en foto’s omzet in een professionele website.</p>
         <div class="stappen">
             <div class="stap">
-                <h3>1. <span>Kennismaking</span></h3>
-                <p>We beginnen met een gesprek om jouw wensen, doelen en doelgroep te begrijpen.</p>
+                <h3>1. <span>Kennismaking &amp; advies</span></h3>
+                <p>We bespreken de onderneming, wensen en doelen. Ik leg uit wat ik kan betekenen en welke website het beste past.</p>
             </div>
             <div class="stap">
-                <h3>2. <span>Ontwerp</span></h3>
-                <p>Ik maak een ontwerp dat past bij jouw merk en doelgroep, en zorg ervoor dat het er professioneel uitziet.</p>
+                <h3>2. <span>Akkoord &amp; aanlevering</span></h3>
+                <p>Na akkoord levert de klant het logo, teksten en foto’s van de onderneming aan.</p>
             </div>
             <div class="stap">
-                <h3>3. <span>Ontwikkeling</span></h3>
-                <p>Ik bouw de website met moderne technologieen en zorg ervoor dat deze snel, veilig en gebruiksvriendelijk is.</p>
+                <h3>3. <span>Ontwerp &amp; ontwikkeling</span></h3>
+                <p>Met de huisstijl, foto’s en wensen ontwerp en bouw ik een professionele website die aansluit bij de onderneming en doelgroep.</p>
             </div>
             <div class="stap">
-                <h3>4. <span>Lancering</span></h3>
-                <p>Nadat je tevreden bent met het resultaat, lanceren we de website en zorg ik ervoor dat alles soepel verloopt.</p>
+                <h3>4. <span>Controle &amp; lancering</span></h3>
+                <p>De klant bekijkt het resultaat en geeft feedback. Na de laatste aanpassingen wordt de website online gezet.</p>
             </div>
         </div>
     </section>

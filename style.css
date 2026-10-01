@@ -408,6 +408,10 @@ header nav h2 a:hover{
     justify-content: center;
     align-items: center;
 }
+.contentStappen p{
+    width: 90%;
+    text-align: center;
+}
 .contentStappen .stappen{
     width: 90%;
     height: 100%;
