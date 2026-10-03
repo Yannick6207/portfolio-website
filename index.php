@@ -28,12 +28,12 @@ function configureMailer(PHPMailer $mail, $smtpPassword)
     $mail->isSMTP();
     $mail->Host = 'smtp.strato.com';
     $mail->SMTPAuth = true;
-    $mail->Username = 'yannick.huet@yannick25.nl';
+    $mail->Username = 'info@ynwebdesign.nl';
     $mail->Password = $smtpPassword;
     $mail->Port = 587;
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
     $mail->CharSet = PHPMailer::CHARSET_UTF8;
-    $mail->setFrom('yannick.huet@yannick25.nl', 'YN Webdesign');
+    $mail->setFrom('info@ynwebdesign.nl', 'YN Webdesign');
     $mail->isHTML(true);
     $mail->addEmbeddedImage(
         __DIR__ . '/afbeeldingen/ynwebdesign-logo.png',
@@ -78,7 +78,7 @@ function createEmailLayout($preheader, $content)
                     </tr>
                     <tr>
                         <td style="padding:20px 32px;background-color:#071b33;color:#b9cada;font-size:12px;line-height:19px;text-align:center;">
-                            YN Webdesign &nbsp;&bull;&nbsp; yannick25.nl
+                            YN Webdesign &nbsp;&bull;&nbsp; ynwebdesign.nl
                         </td>
                     </tr>
                 </table>
@@ -132,7 +132,7 @@ if (isset($_POST['submit'])) {
             <h2 style="margin:28px 0 10px;color:#071b33;font-size:18px;">Bericht</h2>
             <div style="padding:18px;background-color:#f2f7fa;border-left:4px solid #18c7e8;border-radius:4px;font-size:15px;line-height:24px;overflow-wrap:anywhere;">' . $safeMessage . '</div>
             <table role="presentation" cellspacing="0" cellpadding="0" border="0" style="margin-top:28px;"><tr><td bgcolor="#18c7e8" style="border-radius:6px;"><a class="email-button" href="' . $replyUrl . '" style="display:inline-block;padding:14px 22px;color:#071b33;text-decoration:none;font-size:15px;font-weight:700;">Beantwoord ' . $safeName . '</a></td></tr></table>
-            <p style="margin:28px 0 0;color:#6a7d8e;font-size:12px;line-height:19px;">Deze aanvraag is ontvangen via yannick25.nl.</p>';
+            <p style="margin:28px 0 0;color:#6a7d8e;font-size:12px;line-height:19px;">Deze aanvraag is ontvangen via ynwebdesign.nl.</p>';
 
         $customerContent = '
             <p style="margin:0 0 8px;color:#18aeca;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1px;">Bedankt voor je aanvraag</p>
@@ -153,17 +153,17 @@ if (isset($_POST['submit'])) {
             }
 
             configureMailer($mail, $smtpPassword);
-            $mail->addAddress('yannick.huet@yannick25.nl');
+            $mail->addAddress('info@ynwebdesign.nl');
             $mail->addReplyTo($email, $name);
             $mail->Subject = 'Nieuwe websiteaanvraag – ' . $name;
             $mail->Body = createEmailLayout('Nieuwe websiteaanvraag van ' . $safeName, $internalContent);
-            $mail->AltBody = "Nieuwe websiteaanvraag\n\nNaam: {$name}\nE-mailadres: {$email}\nPakket: {$pakketDisplay}\n\nBericht:\n{$messageDisplay}\n\nOntvangen via yannick25.nl.";
+            $mail->AltBody = "Nieuwe websiteaanvraag\n\nNaam: {$name}\nE-mailadres: {$email}\nPakket: {$pakketDisplay}\n\nBericht:\n{$messageDisplay}\n\nOntvangen via ynwebdesign.nl.";
             $mail->send();
 
             $confirmationMail = new PHPMailer(true);
             configureMailer($confirmationMail, $smtpPassword);
             $confirmationMail->addAddress($email, $name);
-            $confirmationMail->addReplyTo('yannick.huet@yannick25.nl', 'YN Webdesign');
+            $confirmationMail->addReplyTo('info@ynwebdesign.nl', 'YN Webdesign');
             $confirmationMail->Subject = 'Bedankt voor je aanvraag bij YN Webdesign';
             $confirmationMail->Body = createEmailLayout('Je aanvraag bij YN Webdesign is goed ontvangen.', $customerContent);
             $confirmationMail->AltBody = "Hoi {$name},\n\nJe aanvraag is goed ontvangen. Ik bekijk je wensen en neem zo snel mogelijk contact met je op.\n\nGekozen pakket: {$pakketDisplay}\n\nJouw bericht:\n{$messageDisplay}\n\nMet vriendelijke groet,\n\nYannick van Huet\nYN Webdesign";
