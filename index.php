@@ -10,17 +10,23 @@ function escapeEmailHtml($value)
 
 function getSmtpPassword()
 {
-    $environmentPassword = getenv('PASSWORD');
-    if ($environmentPassword !== false && $environmentPassword !== '') {
-        return $environmentPassword;
+    foreach (['SMTP_PASSWORD', 'PASSWORD'] as $environmentKey) {
+        $environmentPassword = getenv($environmentKey);
+        if ($environmentPassword !== false && $environmentPassword !== '') {
+            return $environmentPassword;
+        }
     }
 
     $environmentFile = __DIR__ . '/.env';
-    $environment = is_readable($environmentFile) ? parse_ini_file($environmentFile) : false;
+    $environment = is_readable($environmentFile)
+        ? parse_ini_file($environmentFile, false, INI_SCANNER_RAW)
+        : false;
 
-    return is_array($environment) && isset($environment['PASSWORD'])
-        ? (string) $environment['PASSWORD']
-        : '';
+    if (!is_array($environment)) {
+        return '';
+    }
+
+    return (string) ($environment['SMTP_PASSWORD'] ?? $environment['PASSWORD'] ?? '');
 }
 
 function configureMailer(PHPMailer $mail, $smtpPassword)
@@ -30,8 +36,9 @@ function configureMailer(PHPMailer $mail, $smtpPassword)
     $mail->SMTPAuth = true;
     $mail->Username = 'info@ynwebdesign.nl';
     $mail->Password = $smtpPassword;
-    $mail->Port = 587;
-    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+    // STRATO gebruikt voor normale SMTP-clients poort 465 met directe TLS.
+    $mail->Port = 465;
+    $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
     $mail->CharSet = PHPMailer::CHARSET_UTF8;
     $mail->setFrom('info@ynwebdesign.nl', 'YN Webdesign');
     $mail->isHTML(true);
@@ -91,7 +98,7 @@ function createEmailLayout($preheader, $content)
 
 $success = "";
 if (isset($_GET['sent'])) {
-    $success = "Bedankt! Je aanvraag is succesvol verstuurd. Je ontvangt binnen enkele minuten een bevestiging per e-mail.";
+    $success = "Bedankt! Je aanvraag is succesvol verstuurd. Ik neem zo snel mogelijk contact met je op.";
 }
 $error = "";
 
@@ -160,14 +167,19 @@ if (isset($_POST['submit'])) {
             $mail->AltBody = "Nieuwe websiteaanvraag\n\nNaam: {$name}\nE-mailadres: {$email}\nPakket: {$pakketDisplay}\n\nBericht:\n{$messageDisplay}\n\nOntvangen via ynwebdesign.nl.";
             $mail->send();
 
-            $confirmationMail = new PHPMailer(true);
-            configureMailer($confirmationMail, $smtpPassword);
-            $confirmationMail->addAddress($email, $name);
-            $confirmationMail->addReplyTo('info@ynwebdesign.nl', 'YN Webdesign');
-            $confirmationMail->Subject = 'Bedankt voor je aanvraag bij YN Webdesign';
-            $confirmationMail->Body = createEmailLayout('Je aanvraag bij YN Webdesign is goed ontvangen.', $customerContent);
-            $confirmationMail->AltBody = "Hoi {$name},\n\nJe aanvraag is goed ontvangen. Ik bekijk je wensen en neem zo snel mogelijk contact met je op.\n\nGekozen pakket: {$pakketDisplay}\n\nJouw bericht:\n{$messageDisplay}\n\nMet vriendelijke groet,\n\nYannick van Huet\nYN Webdesign";
-            $confirmationMail->send();
+            try {
+                $confirmationMail = new PHPMailer(true);
+                configureMailer($confirmationMail, $smtpPassword);
+                $confirmationMail->addAddress($email, $name);
+                $confirmationMail->addReplyTo('info@ynwebdesign.nl', 'YN Webdesign');
+                $confirmationMail->Subject = 'Bedankt voor je aanvraag bij YN Webdesign';
+                $confirmationMail->Body = createEmailLayout('Je aanvraag bij YN Webdesign is goed ontvangen.', $customerContent);
+                $confirmationMail->AltBody = "Hoi {$name},\n\nJe aanvraag is goed ontvangen. Ik bekijk je wensen en neem zo snel mogelijk contact met je op.\n\nGekozen pakket: {$pakketDisplay}\n\nJouw bericht:\n{$messageDisplay}\n\nMet vriendelijke groet,\n\nYannick van Huet\nYN Webdesign";
+                $confirmationMail->send();
+            } catch (Exception $confirmationError) {
+                // De aanvraag is al veilig bij YN Webdesign afgeleverd.
+                error_log('Bevestigingsmail contactformulier mislukt: ' . $confirmationError->getMessage());
+            }
 
             header('Location: index.php?sent=1#contact');
             exit;
@@ -279,7 +291,11 @@ if (isset($_POST['submit'])) {
         <div class="projecten w3-container">
             <article class="projectNova project">
                 <h3><span>NOVA</span></h3>
-                <p class="projectType">Conceptwebsite · Artiestenmanagement</p>
+                <p class="projectType">
+                    <span>Conceptwebsite</span>
+                    <span class="projectTypeIcon" aria-hidden="true"></span>
+                    <span>Artiestenmanagement</span>
+                </p>
                 <div class="projectVisual">
                     <img class="projectScreenshot" src="afbeeldingen/nova-project.png" alt="Homepage van de NOVA-conceptwebsite" loading="lazy">
                     <img class="projectLogo" src="afbeeldingen/nova-logo.svg" alt="NOVA Artist Management-logo">
@@ -295,7 +311,11 @@ if (isset($_POST['submit'])) {
             </article>
             <article class="projectFitFuel project">
                 <h3><span>FitFuel</span></h3>
-                <p class="projectType">Conceptwebsite · Maaltijdservice</p>
+                <p class="projectType">
+                    <span>Conceptwebsite</span>
+                    <span class="projectTypeIcon" aria-hidden="true"></span>
+                    <span>Maaltijdservice</span>
+                </p>
                 <div class="projectVisual">
                     <img class="projectScreenshot" src="afbeeldingen/fitfuel-project.png" alt="Homepage van de FitFuel-conceptwebsite" loading="lazy">
                     <img class="projectLogo" src="afbeeldingen/fitfuel-logo.svg" alt="FitFuel-logo">
@@ -311,7 +331,11 @@ if (isset($_POST['submit'])) {
             </article>
             <article class="projectHorecaWaarheid project">
                 <h3><span>HorecaWaarheid</span></h3>
-                <p class="projectType">Website &amp; webapp · Horeca-inzicht</p>
+                <p class="projectType">
+                    <span>Website &amp; webapp</span>
+                    <span class="projectTypeIcon" aria-hidden="true"></span>
+                    <span>Horeca-inzicht</span>
+                </p>
                 <div class="projectVisual">
                     <img class="projectScreenshot" src="afbeeldingen/horecawaarheid-project.png" alt="Homepage van HorecaWaarheid" loading="lazy">
                     <img class="projectLogo" src="afbeeldingen/horecawaarheid-logo-met-achtergrond.png" alt="HorecaWaarheid-logo">

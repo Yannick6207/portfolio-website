@@ -329,6 +329,19 @@ header nav h2 a:hover{
     font-size: 14px;
     line-height: 1.45;
     text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: nowrap;
+    gap: 10px;
+}
+.contentProjecten .project .projectTypeIcon{
+    width: 14px;
+    height: 14px;
+    flex: 0 0 14px;
+    box-sizing: border-box;
+    border: 2px solid #b8cbd7;
+    border-radius: 50%;
 }
 .contentProjecten .projectVisual{
     position: relative;
