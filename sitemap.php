@@ -4,7 +4,7 @@ declare(strict_types=1);
 header('Content-Type: application/xml; charset=UTF-8');
 
 $baseUrl = 'https://ynwebdesign.nl';
-$excludedFiles = ['404.php', 'sitemap.php'];
+$excludedFiles = ['sitemap.php'];
 $pages = [];
 
 foreach (glob(__DIR__ . '/*.php') ?: [] as $filePath) {
