@@ -195,12 +195,70 @@ if (isset($_POST['submit'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yannick van Huet</title>
+    <title>Webdesigner Achterhoek | Website laten maken | YN Webdesign</title>
+    <meta name="description" content="Professionele en betaalbare website laten maken voor zzp en bedrijven in de Achterhoek en Gelderland? Ontdek webdesign van YN Webdesign.">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+    <meta name="author" content="YN Webdesign">
+    <meta name="theme-color" content="#0A1A2F">
+    <link rel="canonical" href="https://ynwebdesign.nl/">
+    <link rel="icon" href="afbeeldingen/ynwebdesign-logo.webp" type="image/webp">
+
+    <meta property="og:locale" content="nl_NL">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="YN Webdesign">
+    <meta property="og:title" content="Webdesigner in de Achterhoek | YN Webdesign">
+    <meta property="og:description" content="Moderne, snelle websites voor zzp'ers en bedrijven in de Achterhoek en Gelderland.">
+    <meta property="og:url" content="https://ynwebdesign.nl/">
+    <meta property="og:image" content="https://ynwebdesign.nl/afbeeldingen/ynwebdesign-social.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="YN Webdesign">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Webdesigner in de Achterhoek | YN Webdesign">
+    <meta name="twitter:description" content="Moderne, snelle websites voor zzp'ers en bedrijven in de Achterhoek en Gelderland.">
+    <meta name="twitter:image" content="https://ynwebdesign.nl/afbeeldingen/ynwebdesign-social.jpg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": ["Organization", "ProfessionalService"],
+                "@id": "https://ynwebdesign.nl/#organisatie",
+                "name": "YN Webdesign",
+                "url": "https://ynwebdesign.nl/",
+                "logo": "https://ynwebdesign.nl/afbeeldingen/ynwebdesign-logo.webp",
+                "image": "https://ynwebdesign.nl/afbeeldingen/ynwebdesign-social.jpg",
+                "email": "info@ynwebdesign.nl",
+                "founder": {
+                    "@type": "Person",
+                    "name": "Yannick van Huet"
+                },
+                "areaServed": [
+                    {"@type": "AdministrativeArea", "name": "Gelderland"},
+                    {"@type": "Place", "name": "Achterhoek"}
+                ],
+                "sameAs": [
+                    "https://www.instagram.com/yannickvh2004/",
+                    "https://www.tiktok.com/@yannickvanhuet"
+                ]
+            },
+            {
+                "@type": "WebSite",
+                "@id": "https://ynwebdesign.nl/#website",
+                "url": "https://ynwebdesign.nl/",
+                "name": "YN Webdesign",
+                "inLanguage": "nl-NL",
+                "publisher": {"@id": "https://ynwebdesign.nl/#organisatie"}
+            }
+        ]
+    }
+    </script>
 </head>
 <body>
     <div class="hero-boven">
@@ -336,7 +394,7 @@ if (isset($_POST['submit'])) {
                     <span class="projectTypeIcon" aria-hidden="true"></span>
                     <span>Horeca-inzicht</span>
                 </p>
-                <div class="projectVisual">
+766                <div class="projectVisual">
                     <img class="projectScreenshot" src="afbeeldingen/horecawaarheid-project.png" alt="Homepage van HorecaWaarheid" loading="lazy">
                     <img class="projectLogo" src="afbeeldingen/horecawaarheid-logo-met-achtergrond.png" alt="HorecaWaarheid-logo">
                 </div>

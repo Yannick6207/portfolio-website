@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /vendor/
+Disallow: /.env
+
+Sitemap: https://ynwebdesign.nl/sitemap.xml
