@@ -78,17 +78,22 @@ header nav h2 a:hover{
     object-fit: contain;
 }
 .navbar-collapse .navbar-nav{
-    width: 70%;
+    width: auto;
     height: 100%;
     display: flex;
-    justify-content: space-around;
+    justify-content: flex-end;
     align-items: center;
+    gap: clamp(18px, 1.8vw, 34px);
     list-style-type: none;
+}
+.navbar-collapse .navbar-nav .nav-item{
+    flex-shrink: 0;
 }
 .navbar-collapse .navbar-nav .nav-item a{
     text-decoration: none;
     color: white;
     font-size: 16px;
+    white-space: nowrap;
 }
 .navbar-collapse .navbar-nav .nav-item a:hover{
     color: #00C6FF;
