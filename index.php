@@ -365,7 +365,7 @@ if (isset($_POST['submit'])) {
                     <li>JavaScript</li>
                     <li>PHP</li>
                 </ul>
-                <a class="projectCta" href="http://nova.yannick25.nl/" target="_blank" rel="noopener noreferrer">Bekijk het project</a>
+                <a class="projectCta" href="http://nova.ynwebdesign.nl/" target="_blank" rel="noopener noreferrer">Bekijk het project</a>
             </article>
             <article class="projectFitFuel project">
                 <h3><span>FitFuel</span></h3>
@@ -385,7 +385,7 @@ if (isset($_POST['submit'])) {
                     <li>JavaScript</li>
                     <li>PHP</li>
                 </ul>
-                <a class="projectCta" href="http://fitfuel.yannick25.nl/" target="_blank" rel="noopener noreferrer">Bekijk het project</a>
+                <a class="projectCta" href="http://fitfuel.ynwebdesign.nl/" target="_blank" rel="noopener noreferrer">Bekijk het project</a>
             </article>
             <article class="projectHorecaWaarheid project">
                 <h3><span>HorecaWaarheid</span></h3>
