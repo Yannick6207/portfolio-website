@@ -96,6 +96,16 @@ function createEmailLayout($preheader, $content)
 </html>';
 }
 
+$allowedServices = ['Nieuwe website', 'Website redesign', 'Website onderhoud', 'Overige vraag'];
+$selectedService = trim((string) ($_GET['dienst'] ?? ''));
+if (!in_array($selectedService, $allowedServices, true)) {
+    $selectedService = '';
+}
+$name = '';
+$email = '';
+$pakket = '';
+$message = '';
+
 $success = "";
 if (isset($_GET['sent'])) {
     $success = "Bedankt! Je aanvraag is succesvol verstuurd. Ik neem zo snel mogelijk contact met je op.";
@@ -105,14 +115,21 @@ $error = "";
 if (isset($_POST['submit'])) {
     $name = trim((string) ($_POST['name'] ?? ''));
     $email = trim((string) ($_POST['email'] ?? ''));
+    $selectedService = trim((string) ($_POST['dienst'] ?? ''));
     $pakket = trim((string) ($_POST['pakket'] ?? ''));
     $message = trim((string) ($_POST['message'] ?? ''));
     $allowedPackages = ['', 'Starter', 'Business', 'Pro', 'Custom'];
+
+    if ($selectedService !== 'Nieuwe website') {
+        $pakket = '';
+    }
 
     if ($name === '' || preg_match('/[\r\n]/', $name)) {
         $error = 'Vul een geldige naam in.';
     } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL) || preg_match('/[\r\n]/', $email)) {
         $error = 'Vul een geldig e-mailadres in.';
+    } elseif (!in_array($selectedService, $allowedServices, true)) {
+        $error = 'Kies een geldige dienst.';
     } elseif (!in_array($pakket, $allowedPackages, true)) {
         $error = 'Kies een geldig pakket.';
     } else {
@@ -121,6 +138,7 @@ if (isset($_POST['submit'])) {
 
         $safeName = escapeEmailHtml($name);
         $safeEmail = escapeEmailHtml($email);
+        $safeService = escapeEmailHtml($selectedService);
         $safePackage = escapeEmailHtml($pakketDisplay);
         $safeMessage = nl2br(escapeEmailHtml($messageDisplay), false);
         $replyUrl = 'mailto:' . escapeEmailHtml($email);
@@ -129,11 +147,12 @@ if (isset($_POST['submit'])) {
             <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="width:100%;border-collapse:collapse;">
                 <tr><td style="padding:12px 14px;background:#f2f7fa;border-bottom:1px solid #dbe7ee;width:130px;font-size:13px;font-weight:700;color:#496277;">Naam</td><td style="padding:12px 14px;border-bottom:1px solid #dbe7ee;font-size:15px;">' . $safeName . '</td></tr>
                 <tr><td style="padding:12px 14px;background:#f2f7fa;border-bottom:1px solid #dbe7ee;font-size:13px;font-weight:700;color:#496277;">E-mailadres</td><td style="padding:12px 14px;border-bottom:1px solid #dbe7ee;font-size:15px;"><a href="mailto:' . $safeEmail . '" style="color:#087f9b;">' . $safeEmail . '</a></td></tr>
+                <tr><td style="padding:12px 14px;background:#f2f7fa;border-bottom:1px solid #dbe7ee;font-size:13px;font-weight:700;color:#496277;">Dienst</td><td style="padding:12px 14px;border-bottom:1px solid #dbe7ee;font-size:15px;">' . $safeService . '</td></tr>
                 <tr><td style="padding:12px 14px;background:#f2f7fa;font-size:13px;font-weight:700;color:#496277;">Pakket</td><td style="padding:12px 14px;font-size:15px;">' . $safePackage . '</td></tr>
             </table>';
 
         $internalContent = '
-            <p style="margin:0 0 8px;color:#18aeca;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1px;">Nieuwe websiteaanvraag</p>
+            <p style="margin:0 0 8px;color:#18aeca;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1px;">Nieuwe aanvraag</p>
             <h1 class="email-title" style="margin:0 0 24px;color:#071b33;font-size:30px;line-height:38px;">Nieuwe aanvraag van ' . $safeName . '</h1>
             ' . $detailRows . '
             <h2 style="margin:28px 0 10px;color:#071b33;font-size:18px;">Bericht</h2>
@@ -145,6 +164,8 @@ if (isset($_POST['submit'])) {
             <p style="margin:0 0 8px;color:#18aeca;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1px;">Bedankt voor je aanvraag</p>
             <h1 class="email-title" style="margin:0 0 18px;color:#071b33;font-size:30px;line-height:38px;">Hoi ' . $safeName . ',</h1>
             <p style="margin:0 0 24px;color:#344b60;font-size:16px;line-height:26px;">Je aanvraag is goed ontvangen. Ik bekijk je wensen en neem zo snel mogelijk contact met je op.</p>
+            <p style="margin:0 0 6px;color:#496277;font-size:13px;font-weight:700;">Gekozen dienst</p>
+            <p style="margin:0 0 22px;color:#071b33;font-size:16px;">' . $safeService . '</p>
             <p style="margin:0 0 6px;color:#496277;font-size:13px;font-weight:700;">Gekozen pakket</p>
             <p style="margin:0 0 22px;color:#071b33;font-size:16px;">' . $safePackage . '</p>
             <p style="margin:0 0 8px;color:#496277;font-size:13px;font-weight:700;">Jouw bericht</p>
@@ -162,9 +183,9 @@ if (isset($_POST['submit'])) {
             configureMailer($mail, $smtpPassword);
             $mail->addAddress('info@ynwebdesign.nl');
             $mail->addReplyTo($email, $name);
-            $mail->Subject = 'Nieuwe websiteaanvraag – ' . $name;
-            $mail->Body = createEmailLayout('Nieuwe websiteaanvraag van ' . $safeName, $internalContent);
-            $mail->AltBody = "Nieuwe websiteaanvraag\n\nNaam: {$name}\nE-mailadres: {$email}\nPakket: {$pakketDisplay}\n\nBericht:\n{$messageDisplay}\n\nOntvangen via ynwebdesign.nl.";
+            $mail->Subject = 'Nieuwe aanvraag – ' . $name;
+            $mail->Body = createEmailLayout('Nieuwe aanvraag van ' . $safeName, $internalContent);
+            $mail->AltBody = "Nieuwe aanvraag\n\nNaam: {$name}\nE-mailadres: {$email}\nDienst: {$selectedService}\nPakket: {$pakketDisplay}\n\nBericht:\n{$messageDisplay}\n\nOntvangen via ynwebdesign.nl.";
             $mail->send();
 
             try {
@@ -174,7 +195,7 @@ if (isset($_POST['submit'])) {
                 $confirmationMail->addReplyTo('info@ynwebdesign.nl', 'YN Webdesign');
                 $confirmationMail->Subject = 'Bedankt voor je aanvraag bij YN Webdesign';
                 $confirmationMail->Body = createEmailLayout('Je aanvraag bij YN Webdesign is goed ontvangen.', $customerContent);
-                $confirmationMail->AltBody = "Hoi {$name},\n\nJe aanvraag is goed ontvangen. Ik bekijk je wensen en neem zo snel mogelijk contact met je op.\n\nGekozen pakket: {$pakketDisplay}\n\nJouw bericht:\n{$messageDisplay}\n\nMet vriendelijke groet,\n\nYannick van Huet\nYN Webdesign";
+                $confirmationMail->AltBody = "Hoi {$name},\n\nJe aanvraag is goed ontvangen. Ik bekijk je wensen en neem zo snel mogelijk contact met je op.\n\nGekozen dienst: {$selectedService}\nGekozen pakket: {$pakketDisplay}\n\nJouw bericht:\n{$messageDisplay}\n\nMet vriendelijke groet,\n\nYannick van Huet\nYN Webdesign";
                 $confirmationMail->send();
             } catch (Exception $confirmationError) {
                 // De aanvraag is al veilig bij YN Webdesign afgeleverd.
@@ -279,7 +300,7 @@ if (isset($_POST['submit'])) {
                         <li class="nav-item"><a class="nav-link" href="#projecten">Projecten</a></li>
                         <li class="nav-item"><a class="nav-link" href="#stappen">Stappen</a></li>
                         <li class="nav-item"><a class="nav-link" href="#pakketten">Pakketten</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#voordelen">Voordelen</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#onderhoud">Onderhoud</a></li>
                         <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
                     </ul>
                 </div>
@@ -300,7 +321,7 @@ if (isset($_POST['submit'])) {
                 <li><a href="#projecten">Projecten</a></li>
                 <li><a href="#stappen">Stappen</a></li>
                 <li><a href="#pakketten">Pakketten</a></li>
-                <li><a href="#voordelen">Voordelen</a></li>
+                <li><a href="#onderhoud">Onderhoud</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
         </div>
@@ -394,7 +415,7 @@ if (isset($_POST['submit'])) {
                     <span class="projectTypeIcon" aria-hidden="true"></span>
                     <span>Horeca-inzicht</span>
                 </p>
-766                <div class="projectVisual">
+                <div class="projectVisual">
                     <img class="projectScreenshot" src="afbeeldingen/horecawaarheid-project.png" alt="Homepage van HorecaWaarheid" loading="lazy">
                     <img class="projectLogo" src="afbeeldingen/horecawaarheid-logo-met-achtergrond.png" alt="HorecaWaarheid-logo">
                 </div>
@@ -407,6 +428,16 @@ if (isset($_POST['submit'])) {
                 </ul>
                 <a class="projectCta" href="https://horecawaarheid.nl/" target="_blank" rel="noopener noreferrer">Bekijk het project</a>
             </article>
+        </div>
+    </section>
+    <section class="contentRedesign" id="redesign">
+        <div class="redesignCard">
+            <p class="sectieLabel">Website redesign</p>
+            <h2>Al een website, maar toe aan <span>iets nieuws?</span></h2>
+            <p>Is je website verouderd of past deze niet meer bij jouw onderneming? Ik help je met een redesign: een frisse uitstraling, een duidelijke indeling en een website die prettig werkt op mobiel.</p>
+            <p>Samen bekijken we wat behouden kan blijven en wat beter kan. Zo sluit jouw website weer aan bij je bedrijf en je klanten.</p>
+            <p class="offerteLabel">Een redesign is op offertebasis.</p>
+            <a class="sectieCta" href="index.php?dienst=Website+redesign#contact">Bespreek jouw redesign</a>
         </div>
     </section>
     <section class="contentStappen" id="stappen">
@@ -483,6 +514,20 @@ if (isset($_POST['submit'])) {
             </div>
         </div>
     </section>
+    <section class="contentOnderhoud" id="onderhoud">
+        <div class="onderhoudBlok">
+            <div class="onderhoudIntro">
+                <p class="sectieLabel">Vast en duidelijk</p>
+                <h2>Ook na de oplevering <span>geregeld</span></h2>
+                <p class="onderhoudPrijs">Website onderhoud voor <strong>&euro;50 per maand <span class="btwVermelding">exclusief btw</span></strong></p>
+            </div>
+            <div class="onderhoudTekst">
+                <p>Een goede website heeft ook na de oplevering aandacht nodig. Voor een vast bedrag van &euro;50 per maand exclusief btw verzorg ik het onderhoud van jouw website. Zo heb je één vast aanspreekpunt en weet je vooraf waar je aan toe bent.</p>
+                <p>We spreken duidelijk af welke werkzaamheden binnen het onderhoud vallen.</p>
+                <a class="sectieCta" href="index.php?dienst=Website+onderhoud#contact">Onderhoud bespreken</a>
+            </div>
+        </div>
+    </section>
     <section class="contentVoordelen" id="voordelen">
         <h2>Wat levert het je <span>op?</span></h2>
         <ul class="voordelenLijst">
@@ -493,8 +538,8 @@ if (isset($_POST['submit'])) {
         </ul>
     </section>
     <section class="contentContact" id="contact">
-        <h2>Klaar voor jouw nieuwe <span>website?</span></h2>
-        <p>Vraag vrijblijvend een website aan en ontdek wat ik voor jouw bedrijf kan betekenen.</p>
+        <h2>Wat kan ik voor jouw <span>website betekenen?</span></h2>
+        <p>Een nieuwe website laten maken, je bestaande website vernieuwen of het onderhoud uit handen geven? Vertel me wat je nodig hebt. Ik denk graag met je mee.</p>
         <?php
             if ($success) {
                 echo "<p style='color:green;'>$success</p>";
@@ -505,17 +550,23 @@ if (isset($_POST['submit'])) {
             }
         ?>
         <form action="#contact" method="POST">
-            <input type="text" name="name" placeholder="Voornaam en achternaam" required>
-            <input type="email" name="email" placeholder="E-mail" required>
-            <select name="pakket">
-                <option value="" selected>Kies eventueel een pakket</option>
-                <option value="Starter">Starter</option>
-                <option value="Business">Business</option>
-                <option value="Pro">Pro</option>
-                <option value="Custom">Custom</option>
+            <input type="text" name="name" value="<?= escapeEmailHtml($name) ?>" placeholder="Voornaam en achternaam" autocomplete="name" required>
+            <input type="email" name="email" value="<?= escapeEmailHtml($email) ?>" placeholder="E-mail" autocomplete="email" required>
+            <select name="dienst" id="dienst" aria-label="Kies een dienst" required>
+                <option value="" disabled<?= $selectedService === '' ? ' selected' : '' ?>>Kies een dienst</option>
+                <?php foreach ($allowedServices as $service): ?>
+                    <option value="<?= escapeEmailHtml($service) ?>"<?= $selectedService === $service ? ' selected' : '' ?>><?= escapeEmailHtml($service) ?></option>
+                <?php endforeach; ?>
             </select>
-            <textarea name="message" placeholder="Waarmee kan ik je helpen?"></textarea>
-            <button type="submit" name="submit">Vraag vrijblijvend een website aan</button>
+            <select name="pakket" id="pakket" aria-label="Kies eventueel een pakket"<?= $selectedService === 'Nieuwe website' ? '' : ' hidden disabled' ?>>
+                <option value=""<?= $pakket === '' ? ' selected' : '' ?>>Kies eventueel een pakket</option>
+                <option value="Starter"<?= $pakket === 'Starter' ? ' selected' : '' ?>>Starter</option>
+                <option value="Business"<?= $pakket === 'Business' ? ' selected' : '' ?>>Business</option>
+                <option value="Pro"<?= $pakket === 'Pro' ? ' selected' : '' ?>>Pro</option>
+                <option value="Custom"<?= $pakket === 'Custom' ? ' selected' : '' ?>>Custom</option>
+            </select>
+            <textarea name="message" placeholder="Waarmee kan ik je helpen?"><?= escapeEmailHtml($message) ?></textarea>
+            <button type="submit" name="submit">Verstuur je aanvraag</button>
         </form>
     </section>
     <footer>
@@ -568,7 +619,22 @@ if (isset($_POST['submit'])) {
             }
         });
 
-        const animatedItems = document.querySelectorAll(".project, .stap, .pakket, .voordeel");
+        const animatedItems = document.querySelectorAll(".project, .redesignCard, .stap, .pakket, .onderhoudBlok, .voordeel");
+        const dienstSelect = document.querySelector("#dienst");
+        const pakketSelect = document.querySelector("#pakket");
+
+        function updatePackageVisibility() {
+            const showPackages = dienstSelect.value === "Nieuwe website";
+            pakketSelect.hidden = !showPackages;
+            pakketSelect.disabled = !showPackages;
+
+            if (!showPackages) {
+                pakketSelect.value = "";
+            }
+        }
+
+        dienstSelect.addEventListener("change", updatePackageVisibility);
+        updatePackageVisibility();
 
         function showItemsOnScroll() {
             animatedItems.forEach(item => {

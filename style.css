@@ -417,6 +417,73 @@ header nav h2 a:hover{
     color: #0A1A2F;
     background-color: #00C6FF;
 }
+.contentRedesign{
+    width: 100%;
+    padding: 70px 5%;
+    scroll-margin-top: 130px;
+    background-color: #0A1A2F;
+    display: flex;
+    justify-content: center;
+}
+.redesignCard{
+    width: min(100%, 1100px);
+    padding: clamp(32px, 5vw, 64px);
+    background-color: #0E2A3B;
+    border: 1px solid rgba(0, 198, 255, 0.35);
+    border-radius: 14px;
+    box-shadow: 0 16px 38px rgba(0, 0, 0, 0.18);
+    text-align: center;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.redesignCard.show{
+    opacity: 1;
+    transform: translateY(0);
+}
+.redesignCard h2,
+.onderhoudBlok h2{
+    margin: 0 0 20px;
+    line-height: 1.25;
+}
+.redesignCard h2 span,
+.onderhoudBlok h2 span{
+    color: #00C6FF;
+}
+.redesignCard > p:not(.sectieLabel):not(.offerteLabel){
+    max-width: 850px;
+    margin: 0 auto 18px;
+    line-height: 1.8;
+}
+.sectieLabel{
+    margin: 0 0 10px;
+    color: #00C6FF;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+}
+.offerteLabel{
+    margin: 4px 0 24px;
+    color: #b8cbd7;
+    font-weight: 600;
+}
+.sectieCta{
+    display: inline-block;
+    padding: 11px 22px;
+    border: 1px solid #00C6FF;
+    border-radius: 5px;
+    background-color: #00C6FF;
+    color: #0A1A2F;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.25s ease, background-color 0.25s ease;
+}
+.sectieCta:hover,
+.sectieCta:focus-visible{
+    background-color: transparent;
+    color: #00C6FF;
+}
 .contentStappen{
     width: 100%;
     height: auto;
@@ -544,6 +611,63 @@ header nav h2 a:hover{
     font-weight: 600;
     margin-top: auto;
 }
+.contentOnderhoud{
+    width: 100%;
+    padding: 70px 5%;
+    scroll-margin-top: 130px;
+    background-color: #0A1A2F;
+    display: flex;
+    justify-content: center;
+}
+.onderhoudBlok{
+    width: min(100%, 1400px);
+    padding: clamp(32px, 5vw, 60px);
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    align-items: center;
+    gap: clamp(32px, 6vw, 80px);
+    background: linear-gradient(135deg, #0E2A3B 0%, #102f42 100%);
+    border: 2px solid #00C6FF;
+    border-radius: 14px;
+    box-shadow: 0 18px 42px rgba(0, 198, 255, 0.12);
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.onderhoudBlok.show{
+    opacity: 1;
+    transform: translateY(0);
+}
+.onderhoudIntro{
+    padding-right: clamp(0px, 3vw, 36px);
+    border-right: 1px solid rgba(0, 198, 255, 0.35);
+}
+.onderhoudPrijs{
+    margin: 0;
+    color: #ffffff;
+    font-size: clamp(22px, 2.4vw, 34px);
+    line-height: 1.35;
+}
+.onderhoudPrijs strong{
+    display: block;
+    margin-top: 6px;
+    color: #00C6FF;
+    font-size: clamp(30px, 3.7vw, 50px);
+}
+.onderhoudPrijs .btwVermelding{
+    display: block;
+    margin-top: 4px;
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 500;
+}
+.onderhoudTekst p{
+    margin-bottom: 18px;
+    line-height: 1.8;
+}
+.onderhoudTekst .sectieCta{
+    margin-top: 4px;
+}
 .contentVoordelen{
     width: 100%;
     height: auto;
@@ -618,6 +742,9 @@ header nav h2 a:hover{
     color: white;
     background-color: #0E2A3B;
 }
+.contentContact form select[hidden]{
+    display: none !important;
+}
 .contentContact button{
     width: 50%;
     padding: 10px;
@@ -636,7 +763,9 @@ footer{
     align-items: center;
 }
 @media screen and (max-width: 1000px) {
-    .contentProjecten{
+    .contentProjecten,
+    .contentRedesign,
+    .contentOnderhoud{
         scroll-margin-top: 90px;
     }
     header,
@@ -834,6 +963,24 @@ footer{
         width: 100%;
         min-height: auto;
     }
+    .contentRedesign,
+    .contentOnderhoud{
+        padding: 50px 5%;
+    }
+    .onderhoudBlok{
+        grid-template-columns: 1fr;
+        gap: 28px;
+    }
+    .onderhoudIntro{
+        padding-right: 0;
+        padding-bottom: 28px;
+        border-right: 0;
+        border-bottom: 1px solid rgba(0, 198, 255, 0.35);
+        text-align: center;
+    }
+    .onderhoudTekst{
+        text-align: center;
+    }
     .contentVoordelen .voordelenLijst{
         flex-direction: column;
         align-items: center;
@@ -855,6 +1002,14 @@ footer{
 }
 
 @media screen and (max-width: 650px){
+    .redesignCard,
+    .onderhoudBlok{
+        padding: 28px 20px;
+    }
+    .sectieCta{
+        width: 100%;
+        text-align: center;
+    }
     .contentProjecten{
         padding-bottom: 28px;
     }
@@ -886,7 +1041,9 @@ footer{
 
 @media (prefers-reduced-motion: reduce){
     .contentProjecten .project,
-    .contentProjecten .project .projectCta{
+    .contentProjecten .project .projectCta,
+    .redesignCard,
+    .onderhoudBlok{
         transition: none;
     }
 }
